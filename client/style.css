@@ -149,7 +149,7 @@ form img {
   height: 30px;
 }
 
-#example_button {
+#article_button {
   background-color: #696969  ;
   color: #fff;
   font-size: 16px;
@@ -160,6 +160,21 @@ form img {
   transition: background-color 0.3s ease-in-out;
 }
 
-#example_button:hover {
+#article_button:hover {
+  background-color: #4c4c4c;
+}
+
+#essay_button {
+  background-color: #696969  ;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#essay_button:hover {
   background-color: #4c4c4c;
 }
