@@ -23,11 +23,12 @@ app.get('/', async (req, res) => {
 
 app.post('/', async (req, res) => {
     try {
-        const prompt = req.body.prompt;
+        let clientText = req.body.prompt;
+        let command = clientText + "Could you please rephrase this sentence as a native speaker would, without any grammar, typos, or errors? Then, I need comment about why you revise the sentence."
 
         const response = await openai.createCompletion({
             model: "text-davinci-003",
-            prompt: `${prompt}`,
+            prompt: `${command}`,
             temperature: 0,
             max_tokens: 3000,
             top_p: 1,

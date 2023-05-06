@@ -178,3 +178,18 @@ form img {
 #essay_button:hover {
   background-color: #4c4c4c;
 }
+
+#correction_button {
+  background-color: #696969  ;
+  color: #fff;
+  font-size: 16px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+#correction_button:hover {
+  background-color: #4c4c4c;
+}

@@ -5,6 +5,7 @@ const form = document.querySelector('form');
 const chatContainer = document.querySelector('#chat_container');
 const essayButton = document.querySelector('#essay_button');
 const articleButton = document.querySelector('#article_button');
+const correctionButton = document.querySelector('#correction_button');
 
 let loadInterval;
 
@@ -231,6 +232,57 @@ essayButton.addEventListener('click', async (e) => {
     },
     body: JSON.stringify({
       prompt: randomPrompt + essays,
+    }),
+  });
+
+  clearInterval(loadInterval);
+  messageDiv.innerHTML = " ";
+
+  if(response.ok) {
+    const data = await response.json();
+    const parsedData = data.bot.trim(); // trims any trailing spaces/'\n' 
+
+    typeText(messageDiv, parsedData);
+  } else {
+    const err = await response.text();
+
+    messageDiv.innerHTML = "Something went wrong";
+    alert(err);
+  }
+});
+
+correctionButton.addEventListener('click', async (e) => {
+  const correction = "Can you correct this sentence naturally, without grammar, typos, or errors? Even if there is nothing wrong, please correct me like a native speaker would say, And also write the reason why you edited it that way"
+  
+  e.preventDefault();
+  const data = new FormData(form);
+
+  // user's chatstripe
+  chatContainer.innerHTML += chatStripe(false, data.get('prompt'));
+
+  // to clear the textarea input 
+  form.reset();
+
+  // bot's chatstripe
+  const uniqueId = generateUniqueId();
+  chatContainer.innerHTML += chatStripe(true, " ", uniqueId);
+
+  // to focus scroll to the bottom 
+  chatContainer.scrollTop = chatContainer.scrollHeight;
+
+  // specific message div 
+  const messageDiv = document.getElementById(uniqueId);
+  
+  // messageDiv.innerHTML = "..."
+  loader(messageDiv);
+
+  const response = await fetch('https://chatgpt-clone-hgmk.onrender.com', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      prompt: data.get('prompt')
     }),
   });
 
